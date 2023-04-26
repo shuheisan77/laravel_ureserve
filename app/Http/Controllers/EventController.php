@@ -44,8 +44,8 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-
         $check = EventService::checkEventDuplication($request['event_date'], $request['start_time'], $request['end_time']);
+
 
         if($check)
         {
@@ -54,7 +54,7 @@ class EventController extends Controller
         }
 
         $startDate = EventService::joinDateAndTime($request['event_date'], $request['start_time']);
-        $endDate = EventService::joinDateAndTime($request['event_date'], $request['start_time']);
+        $endDate = EventService::joinDateAndTime($request['event_date'], $request['end_time']);
 
         Event::create([
             'name' => $request['event_name'],
@@ -70,15 +70,17 @@ class EventController extends Controller
         return to_route('events.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
     public function show(Event $event)
     {
-        //
+        $event = Event::findOrFail($event->id);
+        $eventDate = $event->eventDate;
+        $startTime = $event->startTime;
+        $endTime = $event->endTime;
+
+        // dd($eventDate, $startTime, $endTime);
+
+        return view('manager.events.show', 
+        compact('event', 'eventDate', 'startTime', 'endTime'));
     }
 
     /**
