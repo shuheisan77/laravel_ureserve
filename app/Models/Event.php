@@ -41,4 +41,11 @@ class Event extends Model
             get: fn($value) => Carbon::parse($this->start_date)->format('Y年m月d日')
         );
     }
+
+    protected function editEventDate(): Attribute
+    {
+        return new Attribute(
+            get: fn($value) => Carbon::parse($this->start_date)->format('Y-m-d')
+        );
+    }
 }

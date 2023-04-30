@@ -9,12 +9,20 @@ class EventService
 {
     public static function checkEventDuplication($eventDate, $startTime, $endTime)
     {
-    $check = DB::table('events')
-        ->whereDate('start_date', $eventDate)
-        ->whereTime('end_date', '>', $startTime)
-        ->whereTime('start_date', '<', $endTime)
-        ->exists();
-    return $check;
+        return DB::table('events')
+            ->whereDate('start_date', $eventDate)
+            ->whereTime('end_date', '>', $startTime)
+            ->whereTime('start_date', '<', $endTime)
+            ->exists();
+    }
+
+    public static function countEventDuplication($eventDate, $startTime, $endTime)
+    {
+        return DB::table('events')
+            ->whereDate('start_date', $eventDate)
+            ->whereTime('end_date', '>', $startTime)
+            ->whereTime('start_date', '<', $endTime)
+            ->count();
     }
 
     public static function joinDateAndTime($date, $time)
