@@ -12,11 +12,6 @@ use App\Services\EventService;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $today = Carbon::today();
